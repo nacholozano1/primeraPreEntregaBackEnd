@@ -18,8 +18,8 @@ class ProductManager {
     const productObject = { title, description, code, price, status, stock, category, thumbnails };
 
     // Checkea si el producto le falta data
-    if (Object.values(productObject).includes("") || Object.values(productObject).includes(null)) {
-      return `Campo del producto faltante`;
+    if (Object.values(productObject).includes("") || Object.values(productObject).includes(undefined)) {
+      return `Falta algún campo. Son todos obligatorios menos thumbnails.`;
     }
   
     this.checkFile();
@@ -43,7 +43,6 @@ class ProductManager {
   async getProducts() {
     const read = await fs.readFile(this.path, "utf-8");
     const data = JSON.parse(await fs.readFile(this.path, "utf-8"));
-    console.log(data);
     return data;
   }
 

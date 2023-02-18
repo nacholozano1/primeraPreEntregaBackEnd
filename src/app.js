@@ -14,5 +14,5 @@ app.use('/api/products', routerProduct)
 app.use('/api/carts', routerCart)
 
 app.listen(PORT, () => {
-    console.log(`Server created on http://localhost:${PORT}`);
+    //console.log(`Server created on http://localhost:${PORT}`);
 });

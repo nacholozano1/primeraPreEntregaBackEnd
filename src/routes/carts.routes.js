@@ -11,14 +11,14 @@ routerCart.post('/:cid/product/:pid', async (req, res) => {
   const prodQty = 1;
   const productInfo = await prodManager.getProductByID(parseInt(req.params.pid));
 
-  if (!productInfo) {
-    return res.status(404).send(`Producto "${req.params.pid}" no encontrado.`);
+  if (productInfo.id == undefined) {
+    return res.status(404).send(`El producto con el ID: "${req.params.pid}" no existe.`);
   }
-
   const result = await cartManager.addProduct(parseInt(req.params.cid), parseInt(req.params.pid), prodQty);
+  const cart = await cartManager.getCart(parseInt(req.params.cid));
 
-  if (!result) {
-    return res.status(500).send(`Error al agregar el producto.`);
+  if (!cart) {
+    return res.status(500).send(`Error al agregar el producto. El carrito con el ID: "${req.params.cid}" no existe.`);
   }
 
   res.send(`Producto "${productInfo.id}" fue agragado al carrito exitosamente.`);
